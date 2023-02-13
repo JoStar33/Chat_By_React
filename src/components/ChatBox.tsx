@@ -1,12 +1,19 @@
-import React from 'react';
+import styled from 'styled-components';
 import { Centering } from '../styles/Centering';
 
 const ChatBox = () => {
   return (
-    <div>
+    <ChatBoxContainer>
       
-    </div>
+    </ChatBoxContainer>
   );
 };
+
+const ChatBoxContainer = styled(Centering)`
+width: 90vw;
+height: 90vh;
+border-radius: 20px;
+border: 2px solid black;
+`;
 
 export default ChatBox;

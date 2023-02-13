@@ -1,9 +1,12 @@
+import { ChatContainer } from "../../styles/Centering";
+
 const MyChat = () => {
   return (
-    <div>
+    <ChatContainer>
       
-    </div>
+    </ChatContainer>
   );
 };
+
 
 export default MyChat;
