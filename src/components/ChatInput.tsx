@@ -1,12 +1,18 @@
 import React, { useRef } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { socket } from '../apis/socketio';
+import { userInfo } from '../states/atom';
 
 const ChatInput = () => {
   const chatRef = useRef<HTMLInputElement>(null);
+  const user = useRecoilValue(userInfo);
   const handleOnClick = () => {
     if(chatRef.current) {
-      socket.emit('msg', chatRef.current.value);
+      socket.emit('msg', {
+        userId: user,
+        chat: chatRef.current.value
+      });
     }
   }
   return (

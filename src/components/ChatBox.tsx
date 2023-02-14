@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { socket } from '../apis/socketio';
 import { Centering } from '../styles/Centering';
+import { useRecoilValue } from 'recoil';
+import { userInfo } from "../states/atom";
 import MyChat from './chat/MyChat';
 import OtherChat from './chat/OtherChat';
 
@@ -12,22 +14,26 @@ type chatType = {
 
 const ChatBox = () => {
   const [ chatArr, setChatArr ] = useState<chatType[]>([]);
+  const user = useRecoilValue(userInfo);
   useEffect(() => {
-    socket.on('msg', (data: chatType) => {
-      chatArr.push(data);
-      setChatArr(chatArr)
+    socket.on('msg', (data) => {
+      setChatArr([...chatArr, data]);
     });
-  }, []);
+  });
   return (
     <ChatBoxContainer>
       {
-        chatArr.map(chat => chat.userId === )
+        chatArr.map(chat => chat.userId === user 
+          ? <MyChat key={chat.userId + chatArr.length * 2} chat={chat.chat}></MyChat> 
+          : <OtherChat chat={chat.chat} userId={chat.userId}></OtherChat>)
       }
     </ChatBoxContainer>
   );
 };
 
-const ChatBoxContainer = styled(Centering)`
+const ChatBoxContainer = styled.div`
+display: flex;
+flex-direction: column;
 width: 800px;
 height: 80vh;
 border-radius: 20px;
