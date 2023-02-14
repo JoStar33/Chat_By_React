@@ -1,13 +1,17 @@
 import { Centering } from '../styles/Centering';
 import styled from 'styled-components';
+import { userInfo } from '../states/atom';
+import { useSetRecoilState } from 'recoil';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const InitForm = () => {
+  const setRecoilUser = useSetRecoilState(userInfo);
   const nickRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const handleSetNickName = () => {
     if(nickRef.current) {
+      setRecoilUser(nickRef.current.value);
       navigate("/chat");
     }
   }
